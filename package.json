@@ -1,0 +1,68 @@
+{
+  "name": "cx-loong-agent",
+  "version": "0.1.0",
+  "description": "Thin workflow layer around OpenAI Codex CLI with recursive node orchestration.",
+  "packageManager": "pnpm@10.5.0",
+  "type": "module",
+  "bin": {
+    "loong": "./dist/main.js"
+  },
+  "scripts": {
+    "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist',{ recursive: true, force: true }))\"",
+    "build": "pnpm run clean && pnpm run build:webui && tsc -p tsconfig.json",
+    "build:webui": "vite build --config src/webui/client/vite.config.ts",
+    "dev": "tsx watch ./src/main.ts",
+    "start": "tsx ./src/main.ts",
+    "init:here": "tsx ./src/main.ts init",
+    "run:once": "tsx ./src/main.ts run --once",
+    "test": "vitest run tests/runtime tests/smoke/cli.test.ts",
+    "test:smoke": "vitest run tests/smoke",
+    "test:watch": "vitest",
+    "test:canary": "vitest run -c vitest.canary.config.ts",
+    "typecheck": "tsc -p tsconfig.typecheck.json",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check": "biome check ."
+  },
+  "prepare": "pnpm run build",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vite": "^7.2.7",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@openai/codex-sdk": "^0.142.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "cac": "^7.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "gray-matter": "^4.0.3",
+    "ink": "^7.0.1",
+    "jsonrepair": "^3.14.0",
+    "lucide-react": "^0.468.0",
+    "odometer": "^0.4.8",
+    "react": "^19.2.6",
+    "react-arborist": "^3.7.0",
+    "react-dom": "^19.2.6",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.4.0",
+    "tw-shimmer": "^0.4.11"
+  }
+}
